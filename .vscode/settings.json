@@ -1,0 +1,32 @@
+{
+	"editor.formatOnSave": true,
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": true
+	},
+	"[typescript]": {
+		"editor.suggestSelection": "first",
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.codeActionsOnSave": ["source.fixAll.format", "source.fixAll.eslint"]
+	},
+	"[javascript]": {
+		"editor.suggestSelection": "first",
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.codeActionsOnSave": ["source.fixAll.format", "source.fixAll.eslint"]
+	},
+	"[json]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.codeActionsOnSave": ["source.fixAll.format", "source.fixAll.eslint"]
+	},
+	"[svelte]": {
+		"editor.formatOnSave": true,
+		"editor.defaultFormatter": "svelte.svelte-vscode",
+		"editor.codeActionsOnSave": ["source.fixAll.format", "source.fixAll.eslint"],
+	},
+	"svelte.enable-ts-plugin": false,
+	"files.autoSave": "onWindowChange",
+	"sort-imports.on-save": true,
+	"sort-imports.default-sort-style": "eslint"
+}
