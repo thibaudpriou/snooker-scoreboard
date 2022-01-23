@@ -1,5 +1,6 @@
 <script lang="ts">
-	import {Break, Frame, SnookerGame, StrokeType} from '$model';
+	import {getCurrentFrameScores} from '$lib/game';
+	import {Break, Frame, Score, SnookerGame, StrokeType} from '$model';
 
 	export let game: SnookerGame;
 
@@ -12,12 +13,23 @@
 		...b,
 		strokes: b.strokes.filter(s => s.type !== StrokeType.miss)
 	}));
+
+	let scores: Score[];
+	$: scores = getCurrentFrameScores(game);
+
+	function playerScore(player: string): Score {
+		const score = scores.find(s => s.player === player);
+		if (!score) {
+			throw new Error(`Score not found for player ${player}`);
+		}
+		return score;
+	}
 </script>
 
 <p>Type: {game.type}</p>
 <p>Frame: {game.frames.length}</p>
 
-<table>
+<table class="board">
 	<thead>
 		<tr>
 			{#each players as player}
@@ -49,5 +61,30 @@
 				</tr>
 			{/each}
 		{/each}
+		<tr>
+			{#each players as player}
+				{@const score = playerScore(player)}
+				<td>{score.points - score.penalties}</td>
+			{/each}
+		</tr>
 	</tbody>
 </table>
+
+<style>
+	.board {
+		border-spacing: 0;
+		table-layout: fixed;
+		border-collapse: collapse;
+		text-align: center;
+	}
+
+	.board {
+		min-width: 10em;
+	}
+
+	th,
+	td {
+		border: 1px solid #ddd;
+		padding: 0.5em;
+	}
+</style>
