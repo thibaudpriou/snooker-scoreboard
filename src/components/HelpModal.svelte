@@ -22,7 +22,8 @@
 	<!-- NOT YET IMPLEMENTED -->
 	<li>
 		<p>
-			<strong>C</strong> ("Collateral") to indicate that a subsequent red ball has been pocketted
+			<strong>C</strong> ("Collateral") while pressing a value to indicate that a subsequent red
+			ball has been pocketted
 		</p>
 	</li>
 	<!-- NOT YET IMPLEMENTED -->
