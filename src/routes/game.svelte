@@ -130,6 +130,7 @@
 	function handleQuit() {
 		currentStriker.set(undefined);
 		currentGame.set(undefined);
+		localStorage.clear();
 	}
 
 	onMount(() => {
