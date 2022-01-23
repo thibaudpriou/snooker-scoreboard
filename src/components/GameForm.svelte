@@ -17,11 +17,11 @@
 		},
 		{
 			value: SnookerGameType['10balls'],
-			label: '6 Balls'
+			label: '10 Balls'
 		},
 		{
 			value: SnookerGameType['6balls'],
-			label: '10 Balls'
+			label: '6 Balls'
 		}
 	];
 
