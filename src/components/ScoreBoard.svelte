@@ -1,18 +1,18 @@
 <script lang="ts">
 	import {getCurrentFrameScores} from '$lib/game';
 	import {Break, Frame, Score, SnookerGame, StrokeType} from '$model';
+	import {currentStriker} from '$stores';
 
 	export let game: SnookerGame;
 
 	let players: SnookerGame['players'];
 	$: players = game.players;
+
 	let currentFrame: Frame;
 	$: currentFrame = game.frames[game.frames.length - 1];
+
 	let breaks: Break[];
-	$: breaks = currentFrame.breaks.map(b => ({
-		...b,
-		strokes: b.strokes.filter(s => s.type !== StrokeType.miss)
-	}));
+	$: breaks = currentFrame.breaks;
 
 	let scores: Score[];
 	$: scores = getCurrentFrameScores(game);
@@ -43,7 +43,7 @@
 			{#each b.strokes as stroke}
 				<tr>
 					{#each players as _, pIdx}
-						{#if pIdx === breakPlayer}
+						{#if pIdx === breakPlayer && stroke.type !== StrokeType.miss}
 							<td>
 								<span>
 									{#if stroke.type === StrokeType.foul}
