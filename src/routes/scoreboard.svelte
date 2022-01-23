@@ -1,7 +1,12 @@
 <script lang="ts">
+	import {currentGame} from '$stores';
 	import HelpModal from '$components/HelpModal.svelte';
+	import type {SnookerGame} from 'src/model';
+	import {goto} from '$app/navigation';
+	import {onMount} from 'svelte';
 
 	let help: boolean = false;
+	let game: SnookerGame | undefined;
 
 	function handleKeydown(event: KeyboardEvent) {
 		switch (event.key) {
@@ -20,12 +25,27 @@
 				break;
 		}
 	}
+
+	onMount(() => {
+		currentGame.subscribe(g => {
+			if (!g) {
+				return goto('/');
+			}
+			game = g;
+		});
+	});
 </script>
 
 <svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
 
 <div>
 	<h1>Scoreboard page</h1>
+	<a href="/">home page</a>
+
+	{#if game}
+		<p>Game started</p>
+	{/if}
+
 	{#if help}
 		<div class="help-container">
 			<HelpModal />
