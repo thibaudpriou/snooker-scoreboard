@@ -1,4 +1,4 @@
-import {SnookerGameType, type SnookerGame} from '../../model';
+import {SnookerGameType, type SnookerGame} from '$model';
 import {createGame} from '../game';
 import {suite} from 'uvu';
 import * as assert from 'uvu/assert';

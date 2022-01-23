@@ -23,6 +23,8 @@
 		"allowJs": true,
 		"checkJs": true,
 		"paths": {
+			"$components/*": ["src/components/*"],
+			"$model": ["src/model"],
 			"$lib": ["src/lib"],
 			"$lib/*": ["src/lib/*"],
 			"$stores": ["src/stores"],

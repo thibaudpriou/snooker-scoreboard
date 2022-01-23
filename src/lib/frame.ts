@@ -7,7 +7,7 @@ import {
 	type Stroke,
 	StrokeType,
 	type Score
-} from '../model';
+} from '$model';
 
 export function createFrame(gameType: SnookerGameType): Frame {
 	return {

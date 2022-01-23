@@ -1,4 +1,4 @@
-import {SnookerGameType} from '../model';
+import {SnookerGameType} from '$model';
 
 export function _clone<T>(object: T): T {
 	// TODO optimize

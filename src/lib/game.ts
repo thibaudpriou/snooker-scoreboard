@@ -5,7 +5,7 @@ import {
 	type Score,
 	type SnookerGame,
 	type Stroke
-} from '../model';
+} from '$model';
 import {
 	addBreak,
 	addStroke as addStrokeToFrame,
