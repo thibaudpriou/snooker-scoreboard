@@ -29,16 +29,13 @@
 	}
 </script>
 
-<p>Type: {game.type}</p>
-<p>Frame: {game.frames.length}</p>
-<p>Current striker: {$currentStriker}</p>
 <p>Remaining reds: {currentFrame.remainingReds}</p>
 
 <table class="board">
 	<thead>
 		<tr>
 			{#each players as player}
-				<th>{player}</th>
+				<th class="header" class:active={player === $currentStriker}>{player}</th>
 			{/each}
 		</tr>
 	</thead>
@@ -57,12 +54,10 @@
 					{#each players as _, pIdx}
 						{#if pIdx === breakPlayer}
 							<td>
-								<span>
-									{#if stroke.type === StrokeType.foul}
-										[F]
-									{:else if stroke.type === StrokeType.pot}
-										[P]
-									{/if}
+								<span
+									class:foul={stroke.type === StrokeType.foul}
+									class:pot={stroke.type === StrokeType.pot}
+								>
 									{stroke.score}
 								</span>
 							</td>
@@ -73,7 +68,7 @@
 				</tr>
 			{/each}
 		{/each}
-		<tr>
+		<tr class="total">
 			{#each players as player}
 				{@const score = playerScore(player)}
 				<td>{score.points - score.penalties}</td>
@@ -98,5 +93,19 @@
 	td {
 		border: 1px solid #ddd;
 		padding: 0.5em;
+	}
+
+	.foul {
+		color: red;
+	}
+	.pot {
+		color: black;
+	}
+
+	.total,
+	.header.active {
+		color: white;
+		background-color: blue;
+		font-weight: bold;
 	}
 </style>
