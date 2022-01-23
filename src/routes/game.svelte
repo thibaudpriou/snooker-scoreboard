@@ -18,10 +18,10 @@
 	let keyBuffer: string[] = [];
 
 	function commit(callback = () => {}) {
+		callback();
 		setTimeout(() => {
 			displayKey = false;
 			keyBuffer = [];
-			callback();
 		}, 500);
 	}
 
