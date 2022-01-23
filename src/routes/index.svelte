@@ -1,26 +1,25 @@
 <script lang="ts">
 	import {currentGame} from '$stores';
-	import {createGame} from '$lib/game';
+	import {addFrame, createGame} from '$lib/game';
+	import GameForm from '$components/GameForm.svelte';
 	import {onMount} from 'svelte';
-	import type {SnookerGame} from 'src/model';
+	import {goto} from '$app/navigation';
 
-	let game: SnookerGame | undefined;
+	function handleSubmit(event: CustomEvent) {
+		const params = event.detail as Parameters<typeof createGame>;
+		const game = createGame(...params);
+		currentGame.set(addFrame(game));
+	}
 
 	onMount(() => {
-		const players = ['theo', 'thib'];
-		setTimeout(() => {
-			currentGame.set(createGame(players));
-		}, 1000);
-	});
-
-	currentGame.subscribe(g => {
-		game = g;
+		currentGame.subscribe(game => {
+			if (game) {
+				goto('/game');
+			}
+		});
 	});
 </script>
 
 <h1>Home page</h1>
-<a href="/scoreboard">scoreboard page</a>
 
-{#if game}
-	<p>Game started: {game.type}</p>
-{/if}
+<GameForm on:submit={handleSubmit} />
