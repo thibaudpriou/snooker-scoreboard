@@ -12,7 +12,10 @@
 	$: currentFrame = game.frames[game.frames.length - 1];
 
 	let breaks: Break[];
-	$: breaks = currentFrame.breaks;
+	$: breaks = currentFrame.breaks.map(b => ({
+		...b,
+		strokes: b.strokes.filter(s => s.type !== StrokeType.miss)
+	}));
 
 	let scores: Score[];
 	$: scores = getCurrentFrameScores(game);
@@ -41,10 +44,17 @@
 	<tbody>
 		{#each breaks as b, bIdx}
 			{@const breakPlayer = bIdx % players.length}
+			{#if b.strokes.length === 0}
+				<tr>
+					{#each players as _}
+						<td />
+					{/each}
+				</tr>
+			{/if}
 			{#each b.strokes as stroke}
 				<tr>
 					{#each players as _, pIdx}
-						{#if pIdx === breakPlayer && stroke.type !== StrokeType.miss}
+						{#if pIdx === breakPlayer}
 							<td>
 								<span>
 									{#if stroke.type === StrokeType.foul}
