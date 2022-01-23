@@ -1,9 +1,10 @@
 <script lang="ts">
 	import {currentGame} from '$stores';
-	import HelpModal from '$components/HelpModal.svelte';
 	import type {SnookerGame} from 'src/model';
 	import {goto} from '$app/navigation';
 	import {onMount} from 'svelte';
+	import ScoreBoard from '$components/ScoreBoard.svelte';
+	import HelpModal from '$components/HelpModal.svelte';
 
 	let help: boolean = false;
 	let game: SnookerGame | undefined;
@@ -40,10 +41,9 @@
 
 <div>
 	<h1>Scoreboard page</h1>
-	<a href="/">home page</a>
 
 	{#if game}
-		<p>Game started</p>
+		<ScoreBoard {game} />
 	{/if}
 
 	{#if help}
