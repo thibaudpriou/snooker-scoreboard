@@ -10,6 +10,9 @@
 	let help: boolean = false;
 	let game: SnookerGame | undefined;
 	let striker: Player;
+	currentStriker.subscribe(s => {
+		striker = s;
+	});
 
 	let displayKey: boolean;
 	let keyBuffer: string[] = [];
@@ -124,9 +127,10 @@
 		}
 	}
 
-	currentStriker.subscribe(s => {
-		striker = s;
-	});
+	function handleQuit() {
+		currentStriker.set(undefined);
+		currentGame.set(undefined);
+	}
 
 	onMount(() => {
 		currentGame.subscribe(g => {
@@ -145,6 +149,7 @@
 
 	{#if game}
 		<ScoreBoard {game} />
+		<button on:click={handleQuit}>Quit</button>
 	{/if}
 
 	{#if help}
