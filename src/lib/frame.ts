@@ -71,7 +71,7 @@ export function computePlayerFrameScore(
 	};
 
 	const playerBreaks = frame.breaks.filter(
-		(_, index) => (index - 1) % players.length === playerIndex
+		(_, index) => index % players.length === playerIndex
 	);
 	const playerMoves = playerBreaks.reduce<Stroke[]>(
 		(moves, playerBreak) => [...moves, ...playerBreak.strokes],
