@@ -1,17 +1,26 @@
 <script lang="ts">
-	import {currentGame} from '$stores';
-	import type {SnookerGame} from 'src/model';
+	import {currentGame, currentStriker} from '$stores';
+	import {Player, SnookerGame, StrokeType} from '$model';
 	import {goto} from '$app/navigation';
 	import {onMount} from 'svelte';
 	import ScoreBoard from '$components/ScoreBoard.svelte';
 	import HelpModal from '$components/HelpModal.svelte';
+	import {addStroke} from '$lib/game';
 
 	let help: boolean = false;
 	let game: SnookerGame | undefined;
+	let striker: Player;
+
+	function setNextStriker() {
+		currentStriker.update(s => {
+			const currentIdx = game.players.findIndex(p => p === s);
+			const nbPlayers = game.players.length;
+			return game.players[(currentIdx + 1) % nbPlayers];
+		});
+	}
 
 	function handleKeydown(event: KeyboardEvent) {
-		switch (event.key) {
-			case 'h':
+		switch (event.key.toUpperCase()) {
 			case 'H':
 				help = true;
 				break;
@@ -19,13 +28,20 @@
 	}
 
 	function handleKeyup(event: KeyboardEvent) {
-		switch (event.key) {
-			case 'h':
+		switch (event.key.toUpperCase()) {
 			case 'H':
 				help = false;
 				break;
+			case 'M':
+				currentGame.update(g => addStroke(g, striker, StrokeType.miss));
+				setNextStriker();
+				break;
 		}
 	}
+
+	currentStriker.subscribe(s => {
+		striker = s;
+	});
 
 	onMount(() => {
 		currentGame.subscribe(g => {

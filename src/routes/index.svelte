@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {currentGame} from '$stores';
+	import {currentGame, currentStriker} from '$stores';
 	import {addFrame, createGame} from '$lib/game';
 	import GameForm from '$components/GameForm.svelte';
 	import {onMount} from 'svelte';
@@ -7,6 +7,9 @@
 
 	function handleSubmit(event: CustomEvent) {
 		const params = event.detail as Parameters<typeof createGame>;
+		const firstPlayer = params[0][0];
+		currentStriker.set(firstPlayer);
+
 		const game = createGame(...params);
 		currentGame.set(addFrame(game));
 	}

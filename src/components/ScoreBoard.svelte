@@ -28,6 +28,7 @@
 
 <p>Type: {game.type}</p>
 <p>Frame: {game.frames.length}</p>
+<p>Current striker: {$currentStriker}</p>
 
 <table class="board">
 	<thead>
